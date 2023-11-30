@@ -1,11 +1,6 @@
-﻿/* 
-
- * Доработайте приложение генеалогического дерева таким 
- * образом чтобы программа выводила на экран близких родственников (жену/мужа). 
- * Продумайте способ более красивого вывода с использованием горизонтальных и вертикальных черточек.
- 
- */
+﻿using CreateAppSCharp;
 using System.IO.MemoryMappedFiles;
+using System.Numerics;
 
 namespace CreateAppCSharp;
 
@@ -13,94 +8,24 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Я создал метод, который создает нового члена семьи
-        // Таким методом я создал всех основных членов - 2 бабушки, 2 дедушки, отец, мать, дочь
+        // Реализуйте операторы неявного приведения из long,int,byt в Bits
+        // По сути, к сделанному на семинаре в файле BitGetable.cs я добавил следующий код:
+        // public static implicit operator byte(Bits bits) => (byte)bits.Value;
+        // public static explicit operator Bits(byte value) => new(value);
+        // public static implicit operator int(Bits bits) => (int)bits.Value;
+        // public static explicit operator Bits(int value) => new(value);
 
-        FamilyMembers grandFatherOne = FamilyMembers.CreateMember(
-            name: "Макаров Петр",
-            gender: Gender.man,
-            age: 61
-            );
+        Bits bits = new(63);
+        Bits bitsByte = new((byte)11);
+        Bits bitsInt = new((int)10);
+        Bits bitsLong = new((long)12);
 
-        FamilyMembers grandFatherTwo = FamilyMembers.CreateMember(
-            name: "Беисов Нурлан",
-            gender: Gender.man,
-            age: 61
-            );
-
-        FamilyMembers grandMotherOne = FamilyMembers.CreateMember(
-            name: "Макарова Ольга",
-            gender: Gender.woman,
-            age: 60
-            );
-
-        FamilyMembers grandMotherTwo = FamilyMembers.CreateMember(
-            name: "Беисова Любовь",
-            gender: Gender.woman,
-            age: 55
-            );
-
-        FamilyMembers father = FamilyMembers.CreateMember(
-            name: "Макаров Егор",
-            gender: Gender.man,
-            age: 32,
-            mother: grandMotherOne,
-            father: grandFatherOne
-            );
-
-        FamilyMembers mother = FamilyMembers.CreateMember(
-            name: "Макарова Жанна",
-            gender: Gender.woman,
-            age: 33,
-            mother: grandMotherTwo,
-            father: grandFatherTwo
-            );
+        Console.WriteLine(bits);
+        Console.WriteLine(bitsByte);
+        Console.WriteLine(bitsInt);
+        Console.WriteLine(bitsLong);
 
 
-        FamilyMembers daughter = FamilyMembers.CreateMember(
-            name: "Макарова Майя",
-            gender: Gender.woman,
-            age: 7,
-            mother: mother,
-            father: father
-            );
-
-        // Присваиваю пользователям мужей/жен
-
-        mother.Husband = father;
-        father.Wife = mother;
-        grandMotherOne.Husband = grandFatherOne;
-        grandFatherOne.Wife = grandMotherOne;
-        grandMotherTwo.Husband= grandFatherTwo;
-        grandFatherTwo.Wife = grandMotherTwo;
-
-
-        // Создаю массив со всеми членами семьи
-
-        FamilyMembers[] membersArray = new FamilyMembers[] { grandFatherOne, grandFatherTwo,  grandMotherOne, grandMotherTwo, father, mother, daughter};
-
-        // Я сделал метод для вывода в консоль данных из массива
-        
-        FamilyMembers.ShowInConsoleArray( membersArray, headline: "Все члены семьи" );
-
-        // Получаем бабушек, дедушек и родителей
-
-        var grandMothers = daughter.GetGrandMother();
-        var grandFathers = daughter.GetGrandFather();
-        var parents = daughter.GetParents();
-
-        // Выводим в консоль 
-
-        FamilyMembers.ShowInConsoleArray(grandMothers, headline: "БАБУЛИ");
-        FamilyMembers.ShowInConsoleArray(grandFathers, headline: "ДЕДУЛИ");
-        FamilyMembers.ShowInConsoleArray(parents, headline: "РОДИТЕЛИ");
-
-        // Выводим в консоль всех, кто на ком женат
-
-        for (int i = 0; i < membersArray.Length; i++)
-        {
-            FamilyMembers.ShowMerried(membersArray[i] );
-        }
     }
 }
 

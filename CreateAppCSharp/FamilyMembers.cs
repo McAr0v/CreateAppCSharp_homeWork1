@@ -9,15 +9,15 @@ namespace CreateAppCSharp
 {
     public class FamilyMembers
     {
-        public int Age { get; set; }
-        public string FullName { get; set; }
+        /*public int Age { get; set; }
+        public string? FullName { get; set; }
 
         public Gender Gender { get; set; }
 
-        public FamilyMembers Mother { get; set; }
-        public FamilyMembers Father { get; set; }
-        public FamilyMembers Husband { get; set; }
-        public FamilyMembers Wife { get; set; }
+        public FamilyMembers? Mother { get; set; }
+        public FamilyMembers? Father { get; set; }
+        public FamilyMembers? Husband { get; set; }
+        public FamilyMembers? Wife { get; set; }
 
         // Метод создания члена семьи
         public static FamilyMembers CreateMember(
@@ -125,7 +125,7 @@ namespace CreateAppCSharp
 
             Console.WriteLine();
             Console.WriteLine();
-        }
+        }*/
 
     }
 }
